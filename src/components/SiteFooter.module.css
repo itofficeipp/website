@@ -1,0 +1,30 @@
+.contact p,
+.contact a {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+}
+
+.contact svg {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  margin-top: 1px;
+  color: #91c749;
+}
+
+.zaloIcon {
+  min-width: 34px;
+  display: inline-grid;
+  place-items: center;
+  padding: 3px 5px;
+  border-radius: 5px;
+  background: #0877dd;
+  color: #fff;
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.contact a:hover span:last-child {
+  color: #fff;
+}

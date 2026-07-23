@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 238 84" role="img" aria-labelledby="title desc">
+  <title id="title">Tin Học Đông Du</title>
+  <desc id="desc">Biểu tượng vòng chấm xanh và chữ Đông Du</desc>
+  <g fill="none">
+    <ellipse cx="31" cy="42" rx="14" ry="24" stroke="#08752e" stroke-width="2.4"/>
+    <g fill="#77b82a">
+      <circle cx="31" cy="7" r="2.1"/><circle cx="19" cy="10" r="1.9"/>
+      <circle cx="10" cy="17" r="1.8"/><circle cx="5" cy="28" r="1.7"/>
+      <circle cx="3" cy="42" r="1.6"/><circle cx="5" cy="56" r="1.7"/>
+      <circle cx="10" cy="67" r="1.8"/><circle cx="19" cy="74" r="1.9"/>
+      <circle cx="31" cy="77" r="2.1"/>
+    </g>
+    <g fill="#08752e">
+      <circle cx="43" cy="10" r="1.9"/><circle cx="52" cy="17" r="1.8"/>
+      <circle cx="57" cy="28" r="1.7"/><circle cx="59" cy="42" r="1.6"/>
+      <circle cx="57" cy="56" r="1.7"/><circle cx="52" cy="67" r="1.8"/>
+      <circle cx="43" cy="74" r="1.9"/>
+      <circle cx="14" cy="24" r="1.5"/><circle cx="9" cy="35" r="1.4"/>
+      <circle cx="9" cy="49" r="1.4"/><circle cx="14" cy="60" r="1.5"/>
+      <circle cx="48" cy="24" r="1.5"/><circle cx="53" cy="35" r="1.4"/>
+      <circle cx="53" cy="49" r="1.4"/><circle cx="48" cy="60" r="1.5"/>
+    </g>
+  </g>
+  <g fill="#08752e" font-family="'Arial Narrow', Arial, sans-serif" font-weight="300">
+    <text x="72" y="39" font-size="37" letter-spacing="1.5">ĐÔNG</text>
+    <text x="72" y="76" font-size="37" letter-spacing="2">DU</text>
+  </g>
+</svg>
