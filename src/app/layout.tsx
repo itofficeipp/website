@@ -1,6 +1,13 @@
 import type { Metadata, Viewport } from "next";
+import { Be_Vietnam_Pro } from "next/font/google";
 import { CartProvider } from "@/components/CartProvider";
 import "./globals.css";
+
+const font = Be_Vietnam_Pro({
+  variable: "--font-site",
+  subsets: ["latin", "vietnamese"],
+  weight: ["400", "500", "600", "700", "800"],
+});
 
 
 export const metadata: Metadata = {
@@ -71,7 +78,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   };
 
   return (
-    <html lang="vi">
+    <html lang="vi" className={font.variable}>
       <body>
         <script
           type="application/ld+json"

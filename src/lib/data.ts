@@ -17,6 +17,14 @@ export async function getProduct(slug: string) {
   return result.rows[0] ?? null;
 }
 
+export async function getRelatedProducts(category: string, excludeId: number, limit = 10) {
+  const result = await query<Product>(
+    `select * from products where published = true and category = $1 and id <> $2 order by updated_at desc limit $3`,
+    [category, excludeId, limit],
+  );
+  return result.rows;
+}
+
 export async function getPublishedPosts(limit?: number) {
   const result = await query<Post>(
     `select * from posts where status = 'published' order by published_at desc nulls last${limit ? " limit $1" : ""}`,
