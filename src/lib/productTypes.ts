@@ -55,6 +55,7 @@ export const productTypesByCategory: Record<string, ProductTypeOption[]> = {
     { slug: "access-point", label: "Access Point - Bộ phát WiFi", keywords: ["access point", "bo phat wifi", "bo phat song"] },
     { slug: "modem", label: "Modem", keywords: ["modem"] },
     { slug: "thiet-bi-mang-doanh-nghiep", label: "Thiết bị mạng doanh nghiệp", keywords: ["doanh nghiep"] },
+    { slug: "usb-wifi-adapter", label: "Card mạng - USB Wifi Adapter", keywords: ["usb wifi", "card mang", "wifi adapter"] },
   ],
   "dich-vu-bao-tri-doanh-nghiep": [
     { slug: "bao-tri-dinh-ky", label: "Bảo trì định kỳ", keywords: ["dinh ky"] },
