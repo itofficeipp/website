@@ -335,3 +335,46 @@ body {
     height: auto;
   }
 }
+
+/* ===== PRODUCT DESCRIPTION CLAMP ===== */
+.descClamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 12;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.showMoreBtn {
+  margin-top: 8px;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--green);
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+}
+.showMoreBtn:hover {
+  text-decoration: underline;
+}
+
+/* ===== RELATED PRODUCTS CAROUSEL ===== */
+.relatedSection {
+  margin-top: 48px;
+}
+.relatedTitle {
+  font-size: 24px;
+  margin-bottom: 16px;
+  color: var(--ink);
+}
+.relatedViewport {
+  overflow: hidden;
+}
+.relatedTrack {
+  display: flex;
+  gap: 18px;
+  transition: transform 0.5s ease;
+}
+.relatedItem {
+  flex-shrink: 0;
+}

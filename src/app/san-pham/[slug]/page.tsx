@@ -4,7 +4,10 @@ import { notFound } from "next/navigation";
 import { ProductActions } from "@/components/ProductActions";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
-import { getProduct } from "@/lib/data";
+import { getProduct, getRelatedProducts } from "@/lib/data";
+import { ProductDescription } from "@/components/ProductDescription";
+import { ProductSpecs } from "@/components/ProductSpecs";
+import { RelatedProducts } from "@/components/RelatedProducts";
 import { currency } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
@@ -54,6 +57,7 @@ export async function generateMetadata({
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const product = await getProduct((await params).slug);
   if (!product) notFound();
+  const relatedProducts = await getRelatedProducts(product.category, product.id, 8);
   const cartProduct = { id: product.id, slug: product.slug, name: product.name, price: product.price, image_url: product.image_url };
   const jsonLd = { "@context": "https://schema.org", "@type": "Product", name: product.name, image: [product.image_url], description: product.summary, sku: String(product.id), brand: { "@type": "Brand", name: product.brand }, offers: { "@type": "Offer", url: `https://tinhocdongdu.com/san-pham/${product.slug}`, priceCurrency: "VND", price: product.price, availability: product.stock > 0 ? "https://schema.org/InStock" : "https://schema.org/OutOfStock", itemCondition: "https://schema.org/NewCondition" } };
   return (
@@ -71,11 +75,12 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <p className="stock">{product.stock > 0 ? `Còn hàng (${product.stock} sản phẩm)` : "Tạm hết hàng"}</p>
             <ProductActions product={cartProduct} disabled={product.stock < 1} />
             <h2>Mô tả sản phẩm</h2>
-            <p className="summary">{product.description}</p>
+            <ProductDescription description={product.description} />
             <h2 className="specsTitle">Thông số kỹ thuật</h2>
-            <table className="specs"><tbody>{Object.entries(product.specifications || {}).map(([key, value]) => <tr key={key}><td>{key}</td><td>{value}</td></tr>)}</tbody></table>
+            <ProductSpecs specifications={product.specifications} />
           </article>
         </div>
+        <RelatedProducts products={relatedProducts} />
       </main>
       <SiteFooter />
     </>
