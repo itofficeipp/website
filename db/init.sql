@@ -14,7 +14,20 @@ create table if not exists products (
   stock integer not null default 0 check (stock >= 0),
   published boolean not null default false,
   created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now()
+  updated_at timestamptz not null default now(),
+  meta_title text,
+  meta_description text,
+  focus_keyword text,
+  canonical_url text,
+  og_description text,
+  og_image_url text,
+  image_alt text,
+  image_caption text,
+  tags text[],
+  robots_index boolean default true,
+  robots_follow boolean default true,
+  og_title text,
+  product_type varchar(120)
 );
 
 create table if not exists posts (
