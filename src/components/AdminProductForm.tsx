@@ -1,4 +1,9 @@
+"use client";
+
+import { useState } from "react";
 import type { Product } from "@/lib/types";
+import { normalizeCategory } from "@/lib/categories";
+import { productTypesByCategory } from "@/lib/productTypes";
 
 const errors: Record<string, string> = {
   required: "Vui lòng nhập đầy đủ các trường bắt buộc và giá bán lớn hơn 0.",
@@ -17,6 +22,10 @@ export function AdminProductForm({
   const specifications = product
     ? Object.entries(product.specifications || {}).map(([key, value]) => `${key}: ${value}`).join("\n")
     : "";
+  const [categoryValue, setCategoryValue] = useState(product?.category || "");
+  const [selectedType, setSelectedType] = useState(product?.product_type || "");
+  const typeOptions = productTypesByCategory[normalizeCategory(categoryValue)] || [];
+  const hasLegacyType = Boolean(selectedType) && !typeOptions.some((opt) => opt.label === selectedType);
   return (
     <>
       {error && <p className="error">{errors[error] || "Không thể lưu sản phẩm."}</p>}
@@ -26,7 +35,7 @@ export function AdminProductForm({
         <label>Đường dẫn SEO<input name="slug" defaultValue={product?.slug} placeholder="Để trống sẽ tự tạo từ tên" /></label>
         <div className="formActions">
           <label style={{flex:1}}>Danh mục *
-            <input name="category" list="product-categories" defaultValue={product?.category} placeholder="Chọn hoặc nhập danh mục" required />
+            <input name="category" list="product-categories" value={categoryValue} onChange={(e) => setCategoryValue(e.target.value)} placeholder="Chọn hoặc nhập danh mục" required />
             <datalist id="product-categories">
               <option value="Laptop" />
               <option value="PC & Linh kiện" />
@@ -40,7 +49,13 @@ export function AdminProductForm({
           </label>
           <label style={{flex:1}}>Thương hiệu *<input name="brand" defaultValue={product?.brand} required /></label>
         </div>
-        <label>Loại sản phẩm<input name="product_type" defaultValue={product?.product_type || ""} placeholder="VD: SSD, Bàn phím, Access Point... (tuỳ chọn, sẽ chuẩn hoá sau)" /></label>
+        <label>Loại sản phẩm
+          <select name="product_type" value={selectedType} onChange={(e) => setSelectedType(e.target.value)}>
+            <option value="">-- Chưa chọn --</option>
+            {hasLegacyType && <option value={selectedType}>{selectedType} (giá trị hiện tại, chưa chuẩn hoá)</option>}
+            {typeOptions.map((opt) => <option key={opt.slug} value={opt.label}>{opt.label}</option>)}
+          </select>
+        </label>
         <label>Mô tả ngắn *<textarea name="summary" defaultValue={product?.summary} rows={3} required /></label>
         <label>Mô tả chi tiết *<textarea name="description" defaultValue={product?.description} required /></label>
         <label>Thông số kỹ thuật<textarea name="specifications" defaultValue={specifications} placeholder={"CPU: Intel Core i7\nRAM: 16GB\nLưu trữ: 512GB SSD"} /></label>
