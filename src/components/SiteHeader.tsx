@@ -11,14 +11,14 @@ function SiteNavFallback() {
     <nav className="nav">
       <div className="container">
         <Link href="/san-pham">Danh mục sản phẩm</Link>
-        <Link href="/san-pham?category=laptop">Laptop</Link>
-        <Link href="/san-pham?category=pc-linh-kien">PC & Linh kiện</Link>
-        <Link href="/san-pham?category=phu-kien">Phụ kiện</Link>
-        <Link href="/san-pham?category=man-hinh">Màn hình</Link>
-        <Link href="/san-pham?category=may-in">Máy in</Link>
-        <Link href="/san-pham?category=camera">Camera</Link>
-        <Link href="/san-pham?category=thiet-bi-mang">Thiết bị mạng</Link>
-        <Link href="/san-pham?category=dich-vu-bao-tri-doanh-nghiep">Dịch vụ bảo trì doanh nghiệp</Link>
+        <Link href="/san-pham/danh-muc/laptop">Laptop</Link>
+        <Link href="/san-pham/danh-muc/pc-linh-kien">PC & Linh kiện</Link>
+        <Link href="/san-pham/danh-muc/phu-kien">Phụ kiện</Link>
+        <Link href="/san-pham/danh-muc/man-hinh">Màn hình</Link>
+        <Link href="/san-pham/danh-muc/may-in">Máy in</Link>
+        <Link href="/san-pham/danh-muc/camera">Camera</Link>
+        <Link href="/san-pham/danh-muc/thiet-bi-mang">Thiết bị mạng</Link>
+        <Link href="/san-pham/danh-muc/dich-vu-bao-tri-doanh-nghiep">Dịch vụ bảo trì doanh nghiệp</Link>
         <Link href="/tin-tuc">Tin công nghệ</Link>
         <Link href="/lien-he">Liên hệ</Link>
       </div>
