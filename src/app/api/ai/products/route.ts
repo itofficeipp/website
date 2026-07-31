@@ -3,6 +3,8 @@ import { NextResponse } from "next/server";
 import { isAiAuthorized } from "@/lib/auth";
 import { query } from "@/lib/db";
 import { slugify } from "@/lib/utils";
+import { categories, normalizeCategory } from "@/lib/categories";
+import { inferProductType } from "@/lib/productTypes";
 
 const attempts = new Map<string, number[]>();
 
@@ -103,6 +105,15 @@ export async function POST(request: Request) {
   const name = text(body.name, 220);
   const category = text(body.category, 100);
   const productType = nullableText(body.product_type, 120);
+
+  const categoryMatch = categories.find(
+    (c) => normalizeCategory(c.label) === normalizeCategory(category) || c.slug === normalizeCategory(category),
+  );
+  if (!categoryMatch) {
+    console.warn(`[api/ai/products] Category khong khop danh muc chuan: "${category}"`);
+  }
+  const inferredType = categoryMatch && productType ? inferProductType(categoryMatch.slug, productType) : null;
+  const normalizedProductType = inferredType ? inferredType.label : productType;
   const brand = text(body.brand, 100);
   const summary = text(body.summary || body.meta_description, 1000);
   const description = text(body.description, 20_000);
@@ -194,7 +205,7 @@ export async function POST(request: Request) {
       slug,
       name,
       category,
-      productType,
+      normalizedProductType,
       brand,
       summary,
       description,
