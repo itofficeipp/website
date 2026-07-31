@@ -30,6 +30,7 @@ export function AdminProductForm({
             <datalist id="product-categories">
               <option value="Laptop" />
               <option value="PC & Linh kiện" />
+              <option value="Phụ kiện" />
               <option value="Màn hình" />
               <option value="Máy in" />
               <option value="Camera" />
@@ -39,6 +40,7 @@ export function AdminProductForm({
           </label>
           <label style={{flex:1}}>Thương hiệu *<input name="brand" defaultValue={product?.brand} required /></label>
         </div>
+        <label>Loại sản phẩm<input name="product_type" defaultValue={product?.product_type || ""} placeholder="VD: SSD, Bàn phím, Access Point... (tuỳ chọn, sẽ chuẩn hoá sau)" /></label>
         <label>Mô tả ngắn *<textarea name="summary" defaultValue={product?.summary} rows={3} required /></label>
         <label>Mô tả chi tiết *<textarea name="description" defaultValue={product?.description} required /></label>
         <label>Thông số kỹ thuật<textarea name="specifications" defaultValue={specifications} placeholder={"CPU: Intel Core i7\nRAM: 16GB\nLưu trữ: 512GB SSD"} /></label>
