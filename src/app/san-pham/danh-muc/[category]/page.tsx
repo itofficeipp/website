@@ -5,6 +5,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { getProducts } from "@/lib/data";
 import { categories, normalizeCategory } from "@/lib/categories";
+import { getProductTypeOptions } from "@/lib/productTypes";
 
 export const dynamic = "force-dynamic";
 
@@ -53,6 +54,9 @@ export default async function CategoryPage({
 
   const products = (await getProducts()).filter((p) => matchesCategory(p, category));
   const label = cat?.label || products[0]?.category;
+  const typeOptions = getProductTypeOptions(category)
+    .map((opt) => ({ ...opt, count: products.filter((p) => p.product_type === opt.label).length }))
+    .filter((opt) => opt.count > 0);
   if (!label) notFound();
 
   const breadcrumbLd = { "@context": "https://schema.org", "@type": "BreadcrumbList", itemListElement: [ { "@type": "ListItem", position: 1, name: "Trang chủ", item: "https://tinhocdongdu.com" }, { "@type": "ListItem", position: 2, name: "Sản phẩm", item: "https://tinhocdongdu.com/san-pham" }, { "@type": "ListItem", position: 3, name: label, item: `https://tinhocdongdu.com/san-pham/danh-muc/${category}` } ] };
@@ -73,6 +77,19 @@ export default async function CategoryPage({
             </nav>
             <h1>{label}</h1>
             <p>Tìm {label.toLowerCase()} chính hãng, giá tốt tại Tin Học Đông Du.</p>
+            {typeOptions.length > 0 && (
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginTop: "1rem" }}>
+                {typeOptions.map((opt) => (
+                  <a
+                    key={opt.slug}
+                    href={`/san-pham/danh-muc/${category}/${opt.slug}`}
+                    style={{ padding: "0.35rem 0.75rem", border: "1px solid #ddd", borderRadius: "999px", fontSize: "0.875rem", textDecoration: "none", color: "inherit" }}
+                  >
+                    {opt.label} ({opt.count})
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
         </section>
 

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getProducts, getPublishedPosts } from "@/lib/data";
+import { getProductTypeOptions } from "@/lib/productTypes";
 
 // Định nghĩa trực tiếp tại đây, không phụ thuộc file khác — tránh lỗi
 // module-not-found nếu cấu trúc thư mục lib khác nhau giữa các môi trường.
@@ -45,6 +46,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "daily" as const,
       priority: 0.85,
     })),
+    ...categoriesWithProducts.flatMap((cat) =>
+      getProductTypeOptions(cat.slug)
+        .filter((opt) =>
+          products.some(
+            (p) =>
+              normalizeCategory(
+                [p.category, (p as { category_slug?: string }).category_slug].filter(Boolean).join(" ")
+              ).includes(cat.slug) && p.product_type === opt.label
+          )
+        )
+        .map((opt) => ({
+          url: `${base}/san-pham/danh-muc/${cat.slug}/${opt.slug}`,
+          changeFrequency: "daily" as const,
+          priority: 0.75,
+        }))
+    ),
     { url: `${base}/tin-tuc`, changeFrequency: "weekly", priority: 0.7 },
     { url: `${base}/lien-he`, changeFrequency: "monthly", priority: 0.5 },
     ...products.map((p) => ({ url: `${base}/san-pham/${p.slug}`, lastModified: p.updated_at, changeFrequency: "weekly" as const, priority: 0.8 })),
