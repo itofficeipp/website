@@ -64,7 +64,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         <div className="detail">
           <div className="detailImage"><Image src={product.image_url} alt={product.name} fill priority sizes="(max-width: 900px) 100vw, 50vw" /></div>
           <article className="detailInfo">
-            <small>{product.brand} • {product.category}</small>
+            <small>{product.brand} • {product.category}{product.product_type && ` • ${product.product_type}`}</small>
             <h1>{product.name}</h1>
             <p className="summary">{product.summary}</p>
             <div className="detailPrice">{currency.format(product.price)}</div>
