@@ -102,6 +102,7 @@ export async function POST(request: Request) {
 
   const name = text(body.name, 220);
   const category = text(body.category, 100);
+  const productType = nullableText(body.product_type, 120);
   const brand = text(body.brand, 100);
   const summary = text(body.summary || body.meta_description, 1000);
   const description = text(body.description, 20_000);
@@ -158,6 +159,7 @@ export async function POST(request: Request) {
         slug,
         name,
         category,
+        product_type,
         brand,
         summary,
         description,
@@ -185,13 +187,14 @@ export async function POST(request: Request) {
       (
         $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,
         $11,$12,$13,$14,$15,$16,$17,$18,$19,$20,
-        $21,$22,$23,$24,$25
+        $21,$22,$23,$24,$25,$26
       )
      returning id,slug`,
     [
       slug,
       name,
       category,
+      productType,
       brand,
       summary,
       description,
