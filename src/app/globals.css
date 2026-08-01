@@ -359,3 +359,45 @@ body {
 .relatedItem {
   flex-shrink: 0;
 }
+
+/* ===== CATEGORY SHOWCASE (Trang chủ - Lựa chọn dành cho bạn) ===== */
+.categoryShowcase {
+  margin-top: 6px;
+}
+.categoryShowcaseWrap {
+  position: relative;
+}
+.carouselArrow {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--green);
+  cursor: pointer;
+  transform: translateY(-50%);
+  box-shadow: 0 6px 16px rgba(10, 45, 24, 0.12);
+}
+.carouselArrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.carouselArrowLeft {
+  left: -18px;
+}
+.carouselArrowRight {
+  right: -18px;
+}
+@media (max-width: 650px) {
+  .carouselArrowLeft {
+    left: -8px;
+  }
+  .carouselArrowRight {
+    right: -8px;
+  }
+}

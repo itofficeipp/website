@@ -4,12 +4,18 @@ import { ArrowRight, Headphones, Laptop, Monitor, ShieldCheck, Truck } from "luc
 import { ProductCard } from "@/components/ProductCard";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
-import { getProducts, getPublishedPosts } from "@/lib/data";
+import { getProducts, getProductsByCategory, getPublishedPosts } from "@/lib/data";
+import { categories } from "@/lib/categories";
+import { CategoryShowcase } from "@/components/CategoryShowcase";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const [products, posts] = await Promise.all([getProducts(8), getPublishedPosts(3)]);
+  const [products, posts, categoryProducts] = await Promise.all([
+    getProducts(8),
+    getPublishedPosts(3),
+    Promise.all(categories.map((c) => getProductsByCategory(c.label, 10))),
+  ]);
   return (
     <>
       <SiteHeader />
@@ -28,6 +34,9 @@ export default async function Home() {
           <div className="sectionTitle"><div><span>SẢN PHẨM NỔI BẬT</span><h2>Lựa chọn dành cho bạn</h2></div><Link href="/san-pham">Xem tất cả <ArrowRight size={16} /></Link></div>
           <div className="productGrid">{products.map((product) => <ProductCard key={product.id} product={product} />)}</div>
         </section>
+        {categories.map((c, i) => categoryProducts[i].length > 0 && (
+          <CategoryShowcase key={c.slug} title={c.label} viewAllHref={`/san-pham/danh-muc/${c.slug}`} products={categoryProducts[i]} />
+        ))}
         <section className="categoryBand"><div className="container categoryGrid">
           <Link href="/san-pham?category=Laptop"><Laptop /><strong>Laptop</strong><span>Học tập, văn phòng, gaming</span></Link>
           <Link href="/san-pham?category=PC"><Monitor /><strong>PC & Linh kiện</strong><span>Cấu hình theo yêu cầu</span></Link>

@@ -40,3 +40,11 @@ export async function getPost(slug: string) {
   );
   return result.rows[0] ?? null;
 }
+
+export async function getProductsByCategory(category: string, limit = 10) {
+  const result = await query<Product>(
+    `select * from products where published = true and category = $1 order by updated_at desc limit $2`,
+    [category, limit],
+  );
+  return result.rows;
+}
